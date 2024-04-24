@@ -1,0 +1,3 @@
+[build]
+  command = "nx run web-client:build"
+  publish = "dist/apps/web-client/analog"

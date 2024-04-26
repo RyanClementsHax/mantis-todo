@@ -29,7 +29,7 @@ export default defineConfig(({ mode }) => {
           preset: 'netlify',
           output: {
             serverDir: '{{ rootDir }}/.netlify/functions-internal',
-            publicDir: '../../dist/analog/public',
+            publicDir: '../../dist/apps/web-client/client',
           },
         },
       }),

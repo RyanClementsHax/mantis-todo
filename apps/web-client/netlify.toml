@@ -1,7 +1,5 @@
 [build]
   command = "nx build web-client"
-  publish = "dist/apps/web-client"
-
-[functions]
-  directory = "dist/apps/web-client/analog/server"
+  publish = "dist/apps/web-client/analog"
+  functions = "dist/apps/web-client/analog/server"
 

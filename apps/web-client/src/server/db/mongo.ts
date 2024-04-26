@@ -3,7 +3,6 @@ import mongoose, {
   type Schema,
   type CompileModelOptions,
 } from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
 import path from 'node:path';
 import { tmpdir } from 'node:os';
 import net from 'node:net';
@@ -51,6 +50,7 @@ async function getUri(): Promise<string> {
       return uri;
     }
     await fs.ensureDir(dbPath);
+    const { MongoMemoryServer } = await import('mongodb-memory-server');
     await MongoMemoryServer.create({
       instance: {
         // Without specifying a dbPath a random path will be selected

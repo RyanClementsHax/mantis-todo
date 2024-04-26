@@ -1,0 +1,1 @@
+{"version":3,"file":"renderer.mjs","sources":["../../../../../../dist/apps/web-client/ssr/main.server.js","../../../../../../node_modules/.pnpm/@analogjs+vite-plugin-nitro@1.2.2/node_modules/@analogjs/vite-plugin-nitro/src/lib/runtime/renderer.ts"],"sourcesContent":null,"names":["_a","eventHandler","renderer"],"mappings":"","x_google_ignoreList":[1]}

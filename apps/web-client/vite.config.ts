@@ -20,23 +20,7 @@ export default defineConfig(({ mode }) => {
         allow: ['.'],
       },
     },
-    plugins: [
-      analog({
-        nitro: {
-          externals: {
-            external: [],
-          },
-          preset: 'netlify',
-          output: {
-            serverDir:
-              '{{ rootDir }}/../../dist/apps/web-client/.netlify/functions-internal',
-            publicDir: '../../dist/apps/web-client/analog/public',
-          },
-        },
-      }),
-      nxViteTsPaths(),
-      splitVendorChunkPlugin(),
-    ],
+    plugins: [analog(), nxViteTsPaths(), splitVendorChunkPlugin()],
     test: {
       globals: true,
       environment: 'jsdom',

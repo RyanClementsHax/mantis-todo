@@ -36,6 +36,8 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       'import.meta.vitest': mode !== 'production',
+      "import('mongodb-memory-server')":
+        "const { MongoMemoryServer } = await Promise.resolve({ MongoMemoryServer: { create: () => { throw new Error('memory server does not work in prod')} } });",
     },
   };
 });

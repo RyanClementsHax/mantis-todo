@@ -15,6 +15,9 @@ export default defineConfig(({ mode }) => {
       commonjsOptions: { transformMixedEsModules: true },
       target: ['es2020'],
     },
+    ssr: {
+      external: ['mongodb-memory-server'],
+    },
     server: {
       fs: {
         allow: ['.'],

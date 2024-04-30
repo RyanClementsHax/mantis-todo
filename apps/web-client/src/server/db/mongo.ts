@@ -14,7 +14,9 @@ export async function getConnection(): Promise<typeof mongoose> {
     return cachedConnection;
   }
   const uri = await getUri();
+  console.log('connecting', { uri });
   const newConnection = await mongoose.connect(uri);
+  console.log('connected');
   cachedConnection = newConnection;
   return newConnection;
 }

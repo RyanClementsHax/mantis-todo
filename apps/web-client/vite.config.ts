@@ -3,21 +3,12 @@
 import analog from '@analogjs/platform';
 import { defineConfig, splitVendorChunkPlugin } from 'vite';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
-import { resolve } from 'node:path';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   return {
     root: __dirname,
     publicDir: 'src/public',
-    resolve: {
-      alias: {
-        'mongodb-memory-server': resolve(
-          __dirname,
-          'src/server/db/mongo-memory-server-prod-stub',
-        ),
-      },
-    },
     build: {
       outDir: '../../dist/apps/web-client/client',
       reportCompressedSize: true,

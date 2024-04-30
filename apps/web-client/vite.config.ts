@@ -9,14 +9,17 @@ export default defineConfig(({ mode }) => {
   return {
     root: __dirname,
     publicDir: 'src/public',
+    resolve: {
+      alias: {
+        'mongodb-memory-server':
+          'src/server/db/mongo-memory-server-prod-stub.ts',
+      },
+    },
     build: {
       outDir: '../../dist/apps/web-client/client',
       reportCompressedSize: true,
       commonjsOptions: { transformMixedEsModules: true },
       target: ['es2020'],
-    },
-    ssr: {
-      external: ['mongodb-memory-server'],
     },
     server: {
       fs: {
@@ -36,8 +39,6 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       'import.meta.vitest': mode !== 'production',
-      "import('mongodb-memory-server')":
-        "Promise.resolve({ MongoMemoryServer: { create: () => { throw new Error('memory server does not work in prod')} } });",
     },
   };
 });

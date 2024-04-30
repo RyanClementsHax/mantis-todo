@@ -3,6 +3,7 @@ import mongoose, {
   type Schema,
   type CompileModelOptions,
 } from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
 import path from 'node:path';
 import { tmpdir } from 'node:os';
 import net from 'node:net';
@@ -42,33 +43,27 @@ async function getUri(): Promise<string> {
   }
   const useLocalDb = uri === 'local';
   if (useLocalDb) {
-    try {
-      const port = 27017;
-      const uri = `mongodb://127.0.0.1:${port}`;
-      const dbPath = path.join(tmpdir(), 'mantis-todo-db');
-      if (await isPortInUse(27017)) {
-        console.log(`Local database found at uri: ${uri}, dbPath: ${dbPath}`);
-        return uri;
-      }
-      await fs.ensureDir(dbPath);
-      const { MongoMemoryServer } = await import('mongodb-memory-server');
-      await MongoMemoryServer.create({
-        instance: {
-          // Without specifying a dbPath a random path will be selected
-          dbPath,
-          // Without specifying the port a random port will be selected
-          port,
-          // Persists the data to disk
-          storageEngine: 'wiredTiger',
-        },
-      });
-      console.log(`Started local database at uri: ${uri}, dbPath: ${dbPath}`);
-      cachedUri = uri;
+    const port = 27017;
+    const uri = `mongodb://127.0.0.1:${port}`;
+    const dbPath = path.join(tmpdir(), 'mantis-todo-db');
+    if (await isPortInUse(27017)) {
+      console.log(`Local database found at uri: ${uri}, dbPath: ${dbPath}`);
       return uri;
-    } catch (e) {
-      console.error('Failed to start local database:', e);
-      throw e;
     }
+    await fs.ensureDir(dbPath);
+    await MongoMemoryServer.create({
+      instance: {
+        // Without specifying a dbPath a random path will be selected
+        dbPath,
+        // Without specifying the port a random port will be selected
+        port,
+        // Persists the data to disk
+        storageEngine: 'wiredTiger',
+      },
+    });
+    console.log(`Started local database at uri: ${uri}, dbPath: ${dbPath}`);
+    cachedUri = uri;
+    return uri;
   } else {
     cachedUri = uri;
     return uri;
